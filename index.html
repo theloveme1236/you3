@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أزرار HTML</title>
+<script>
+function sendData() {
+  var value = document.getElementById("inputField").value;
+  
+  fetch('https://java-9d77b-default-rtdb.firebaseio.com/tiktop.json', {
+    method: 'PATCH', // يمكنك استخدام POST أو أي طريقة أخرى حسب الحاجة
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ username: value })
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('تم إرسال القيمة بنجاح');
+    } else {
+      console.log('فشل في إرسال القيمة');
+    }
+  })
+  .catch(error => {
+    console.error('حدث خطأ:', error);
+  });
+
+}
+
+function myFunction1() {
+    fetch('https://java-9d77b-default-rtdb.firebaseio.com/tiktop.json', {
+        method: 'GET', // استخدام طريقة GET لاسترداد البيانات
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // استرداد البيانات كملف JSON
+        } else {
+            throw new Error('فشل في الحصول على البيانات');
+        }
+    })
+    .then(data => {
+        // تعامل مع البيانات المستردة هنا
+        var username = data.task; // استخراج username من البيانات المستردة
+        var tiktokUrl = 'https://www.tiktok.com/@' + username; // توليد الرابط
+
+        console.log('تم الحصول على البيانات بنجاح:', username);
+
+        // فتح الرابط في نافذة جديدة
+        window.open(tiktokUrl);
+    })
+    .catch(error => {
+        console.error('حدث خطأ:', error);
+    });
+}
+
+
+
+
+
+function myFunction2() {
+	  fetch('https://java-9d77b-default-rtdb.firebaseio.com/tiktop.json', {
+	  method: 'PATCH',
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify({ check: 'start' }),
+	})
+	.then(response => {
+	  if (response.ok) {
+		console.log('تم التحديث بنجاح');
+	  } else {
+		console.log('فشل في تحديث الحقل');
+	  }
+	})
+	.catch(error => {
+	  console.error('حدث خطأ:', error);
+	});
+
+}
+
+function myFunction3() {
+
+	  fetch('https://java-9d77b-default-rtdb.firebaseio.com/tiktop.json', {
+	  method: 'PATCH',
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify({ check: 'close' }),
+	})
+	.then(response => {
+	  if (response.ok) {
+		console.log('تم التحديث بنجاح');
+	  } else {
+		console.log('فشل في تحديث الحقل');
+	  }
+	})
+	.catch(error => {
+	  console.error('حدث خطأ:', error);
+	});
+}
+</script>
+</head>
+<body>
+
+<button id="button1" onclick="myFunction1()">فتح</button>
+<button id="button2" onclick="myFunction2()">فحص</button>
+<button id="button3" onclick="myFunction3()">اعاده تنشيط</button>
+<input type="text" id="inputField" placeholder="أدخل القيمة هنا">
+<button onclick="sendData()">إرسال</button>
+
+</body>
+</html>
