@@ -94,9 +94,6 @@ function myFunction1() {
         // تعامل مع البيانات المستردة هنا
         var username = data.task; // استخراج username من البيانات المستردة
         var tiktokUrl = 'https://www.tiktok.com/@' + username; // توليد الرابط
-        var balance = data.balance;
-        document.getElementById("balance").innerText = balance;
-
         console.log('تم الحصول على البيانات بنجاح:', username);
 
         // فتح الرابط في نافذة جديدة
@@ -130,6 +127,31 @@ function myFunction2() {
 	.catch(error => {
 	  console.error('حدث خطأ:', error);
 	});
+    fetch('https://java-9d77b-default-rtdb.firebaseio.com/tiktop.json', {
+        method: 'GET', // استخدام طريقة GET لاسترداد البيانات
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // استرداد البيانات كملف JSON
+        } else {
+            throw new Error('فشل في الحصول على البيانات');
+        }
+    })
+    .then(data => {
+        var balance = data.balance;
+        document.getElementById("balance").innerText = balance;
+
+        console.log('تم الحصول على البيانات بنجاح:', username);
+
+        // فتح الرابط في نافذة جديدة
+        window.open(tiktokUrl);
+    })
+    .catch(error => {
+        console.error('حدث خطأ:', error);
+    });
 
 }
 
@@ -154,30 +176,7 @@ function myFunction3() {
 	});
 	
 }
-function myFunction4() {
-    fetch('https://java-9d77b-default-rtdb.firebaseio.com/tiktop.json', {
-        method: 'GET', // استخدام طريقة GET لاسترداد البيانات
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json(); // استرداد البيانات كملف JSON
-        } else {
-            throw new Error('فشل في الحصول على البيانات');
-        }
-    })
-    .then(data => {
-        // تعامل مع البيانات المستردة هنا
-        var balance = data.balance; // استخراج username من البيانات المستردة
 
-        console.log('تم الحصول على البيانات بنجاح:', username);
-    })
-    .catch(error => {
-        console.error('حدث خطأ:', error);
-    });
-}
 </script>
 </head>
 <body>
